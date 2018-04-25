@@ -13,13 +13,13 @@ export default class {
       return seed > 80;
     }
     if (DIFFICULTIES.indexOf(difficulty) === 1) {
-      return seed > 60;
+      return seed > 70;
     }
     if (DIFFICULTIES.indexOf(difficulty) === 2) {
-      return seed > 40;
+      return seed > 60;
     }
     if (DIFFICULTIES.indexOf(difficulty) === 3) {
-      return seed > 20;
+      return seed > 50;
     }
   }
 }

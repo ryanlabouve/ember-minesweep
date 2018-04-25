@@ -5,9 +5,9 @@ import {get} from '@ember/object';
 export default Controller.extend({
   game: service(),
   actions: {
-    startNewGame() {
+    startNewGame(difficulty, size) {
       let game = get(this, 'game');
-      get(game, 'startNewGame').apply(game, arguments);
+      get(game, 'startNewGame').apply(game, [difficulty, size], arguments);
     },
-  },
+  }
 });

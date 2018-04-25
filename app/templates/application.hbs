@@ -6,16 +6,42 @@
       <img src="https://slack-imgs.com/?c=1&url=https%3A%2F%2Fstatic.fjcdn.com%2Fgifs%2FWeird_03536d_5482021.gif"/>
     {{/if}}
 
-    <button {{action 'startNewGame'}} data-test-new-game>
-      Start New Game
+    <button {{action 'startNewGame' 'easy' 10}} data-test-new-game>
+      easy
+    </button>
+
+    <button {{action 'startNewGame' 'medium' 15}} data-test-new-game>
+      medium
+    </button>
+
+    <button {{action 'startNewGame' 'hard' 20}} data-test-new-game>
+      hard
+    </button>
+
+    <button {{action 'startNewGame' 'brutal' 25}} data-test-new-game>
+      brutal
     </button>
   {{else}}
     <div data-test-minesweep-game>
-      {{minesweep-game game=game.currentGame}}
+      {{minesweep-game
+        game=game.currentGame
+        resetGameAction=(action 'startNewGame')}}
     </div>
   {{/if}}
 {{else}}
-  <button {{action 'startNewGame'}} data-test-new-game>
-    Start New Game
+  <button {{action 'startNewGame' 'easy' 10}} data-test-new-game>
+    easy
+  </button>
+
+  <button {{action 'startNewGame' 'medium' 15}} data-test-new-game>
+    medium
+  </button>
+
+  <button {{action 'startNewGame' 'hard' 20}} data-test-new-game>
+    hard
+  </button>
+
+  <button {{action 'startNewGame' 'brutal' 25}} data-test-new-game>
+    brutal
   </button>
 {{/if}}

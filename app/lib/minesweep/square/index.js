@@ -11,10 +11,12 @@ const Square = class {
     this.lostGame = opts.lostGame || function() {};
     this.neighbors = opts.neighbors || [];
     this.checkGameWon = opts.checkGameWon;
+    this.updateFlaggedSquares = opts.updateFlaggedSquares;
   }
 
   flag() {
     set(this, 'isFlagged', !this.isFlagged);
+    this.updateFlaggedSquares();
   }
 
   check() {
