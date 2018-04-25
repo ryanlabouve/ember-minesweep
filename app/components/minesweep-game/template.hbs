@@ -1,1 +1,16 @@
-{{yield}}
+<div data-test-minefield-row>
+  <div>
+    Number of mines: {{game.numberOfMines}}<br>
+    Squares revealed: {{game.numberOfSquaresRevealed}}<br>
+  </div>
+  {{#each game.minefield as |minefieldRow|}}
+    <div style="
+      display:flex;
+      align-items: stretch;
+    ">
+      {{#each minefieldRow as |square|}}
+        {{mf-square square=square}}
+      {{/each}}
+    </div>
+  {{/each}}
+</div>

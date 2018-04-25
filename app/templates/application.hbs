@@ -1,7 +1,19 @@
 {{#if game.currentGame}}
-  <div data-test-minesweep-game>
-    {{minesweep-game game=game}}
-  </div>
+  {{#if (or game.currentGame.lost game.currentGame.won)}}
+    {{#if game.currentGame.won}}
+      <img src="https://slack-imgs.com/?c=1&url=https%3A%2F%2Fm.popkey.co%2Fad8e48%2FX03mg.gif" />
+    {{else}}
+      <img src="https://slack-imgs.com/?c=1&url=https%3A%2F%2Fstatic.fjcdn.com%2Fgifs%2FWeird_03536d_5482021.gif"/>
+    {{/if}}
+
+    <button {{action 'startNewGame'}} data-test-new-game>
+      Start New Game
+    </button>
+  {{else}}
+    <div data-test-minesweep-game>
+      {{minesweep-game game=game.currentGame}}
+    </div>
+  {{/if}}
 {{else}}
   <button {{action 'startNewGame'}} data-test-new-game>
     Start New Game

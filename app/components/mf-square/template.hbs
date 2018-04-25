@@ -1,0 +1,38 @@
+{{! bottom #737172}}
+<div style="
+  flex: 1;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  border:0;
+  background: #bbbabb;
+  position:relative;
+">
+  {{#if (not square.isRevealed)}}
+    <div style="
+      background:#bbbabb;
+      height: 50px;
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      border-left: 4px solid #ededed;
+      border-top: 4px solid #ededed;
+      border-bottom: 4px solid #737172;
+      border-right: 4px solid #737172;
+      "
+      onclick={{action 'checkSquare' square}}
+      oncontextmenu={{action 'flagSquare' square}}
+    >
+      {{#if square.isFlagged}}
+        F
+      {{/if}}
+    </div>
+  {{/if}}
+
+  {{#if square.isBomb}}
+    b
+  {{else}}
+    {{square.neighboringBombCount}}
+  {{/if}}
+</div>

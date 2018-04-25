@@ -1,6 +1,7 @@
 import Square from './square';
 import MinefieldGenerator from './minefield-generator';
 import {DIFFICULTIES} from './utils/difficulties';
+import {set} from '@ember/object';
 
 const DEFAULT_OPTS = {
   width: 9,
@@ -13,8 +14,29 @@ export default class {
     this.lost = false;
     this.won = false;
     this.opts = Object.assign({}, DEFAULT_OPTS, opts);
-    this.minefieldGenerator = new MinefieldGenerator(this.ops);
+    this.minefieldGenerator = new MinefieldGenerator(this.opts);
+    this.totalNumberOfSquares = this.height * this.width;
+    this.lostGame = () => {
+      set(this, 'lost', true);
+    };
+    this.checkGameWon = () => {
+      set(this, 'numberOfSquaresRevealed', this.checkNumberOfRevealed());
+      return (
+        this.numberOfMines + this.numberOfSquaresRevealed ===
+        this.totalNumberOfSquares
+      );
+    };
     this.minefield = this._setupMinefieldNeighbors(this._generateMinefield());
+    this.numberOfMines = this.minefield.reduce((acc, row) => {
+      return (acc += row.filter(square => square.isBomb === true).length);
+    }, 0);
+    this.numberOfSquaresRevealed = 0;
+  }
+
+  checkNumberOfRevealed() {
+    return this.minefield.reduce((acc, row) => {
+      return (acc += row.filter(square => square.isRevealed === true).length);
+    }, 0);
   }
 
   _generateMinefield() {
@@ -25,7 +47,9 @@ export default class {
       row.map(
         () =>
           new Square({
-            _isBomb: this.minefieldGenerator.isBomb(),
+            isBomb: this.minefieldGenerator.isBomb(),
+            lostGame: this.lostGame,
+            checkGameWon: this.checkGameWon,
           }),
       ),
     );

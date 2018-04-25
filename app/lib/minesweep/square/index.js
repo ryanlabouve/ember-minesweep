@@ -1,3 +1,5 @@
+import {set} from '@ember/object';
+
 let id = 0;
 const Square = class {
   constructor(opts = {}) {
@@ -6,30 +8,40 @@ const Square = class {
     this.isRevealed = false;
     this.neighboringBombCount = null;
     this.id = ++id;
-
+    this.lostGame = opts.lostGame || function() {};
     this.neighbors = opts.neighbors || [];
-  }
-
-  check() {
-    if (!this.isFlagged) {
-      this.isRevealed = true;
-    }
+    this.checkGameWon = opts.checkGameWon;
   }
 
   flag() {
-    this.isFlagged = !this.isFlagged;
+    set(this, 'isFlagged', !this.isFlagged);
+  }
+
+  check() {
+    if (this.isBomb) {
+      this.lostGame();
+    } else {
+      this.knock();
+      this.checkGameWon();
+    }
   }
 
   knock() {
-    if (this.isBomb) {
+    if (this.isBomb || this.isFlagged || this.isRevealed) {
       return;
     }
 
-    this.isRevealed = true;
+    set(this, 'isRevealed', true);
 
-    this.neighboringBombCount =
-      this.neighboringBombCount || this.getNeighborBombCount();
-    this.neighbors.map(n => n.knock());
+    set(
+      this,
+      'neighboringBombCount',
+      this.neighboringBombCount || this.getNeighborBombCount(),
+    );
+
+    if (!this.neighboringBombCount) {
+      this.neighbors.map(n => n.knock());
+    }
   }
 
   getNeighborBombCount() {

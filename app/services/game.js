@@ -8,7 +8,9 @@ export default Service.extend({
 
   // actions
   startNewGame() {
-    let ms = new Minesweep();
+    let ms = new Minesweep({
+      difficulty: 'easy',
+    });
     set(this, 'currentGame', ms);
     set(this, 'somethingElse', true);
   },
