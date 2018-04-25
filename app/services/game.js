@@ -7,9 +7,11 @@ export default Service.extend({
   viewGame: false,
 
   // actions
-  startNewGame() {
+  startNewGame(difficulty, size) {
     let ms = new Minesweep({
-      difficulty: 'easy',
+      difficulty,
+      width: size,
+      height: size
     });
     set(this, 'currentGame', ms);
     set(this, 'somethingElse', true);
