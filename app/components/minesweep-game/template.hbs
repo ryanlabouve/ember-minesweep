@@ -7,10 +7,24 @@
     {{minesLeft}}
   </div>
 
-  <div onclick={{action 'resetGame'}} align='center' style='
+  <div align='center' style='
   cursor: pointer;
   flex: 1;'>
-    😬
+    <span onclick={{action 'resetGame'}}>
+      😬
+    </span>
+
+    <div>
+      {{#if isEditingFlags}}
+        <div {{action changeIsEditingFlags false}}>
+          &gt;&gt; Now select square to flag or cancel&lt;&lt;
+        </div>
+      {{else}}
+        <div {{action changeIsEditingFlags true}}>
+          (place flag <span><img src="/flag.png"></span>)
+        </div>
+      {{/if}}
+    </div>
   </div>
 
   <div align='right' style='flex: 1;'>
@@ -24,7 +38,11 @@
       align-items: stretch;
     ">
       {{#each minefieldRow as |square|}}
-        {{mf-square square=square}}
+      {{mf-square
+        square=square
+        isEditingFlags=isEditingFlags
+        changeIsEditingFlags=changeIsEditingFlags
+      }}
       {{/each}}
     </div>
   {{/each}}

@@ -1,28 +1,33 @@
-<div style="clear:both;">
-  <h1 style="float: left;">Ember MineSweep [<a href="https://github.com/ryanlabouve/ember-minesweep">githutb</a>]</h1>
-  <p style="float: right; margin-top: 34px;">
-    By <a href="https://twitter.com/ryanlabouve">@ryanlabouve</a> && <a href="https://twitter.com/chundabear">@chundabear</a>
-  </p>
-</div>
-<div style="clear: both;">&nbsp;</div>
-<div>
-  {{#if game.currentGame}}
-    {{#if (or game.currentGame.lost game.currentGame.won)}}
-      {{#if game.currentGame.won}}
-        <img src="https://slack-imgs.com/?c=1&url=https%3A%2F%2Fm.popkey.co%2Fad8e48%2FX03mg.gif" />
-      {{else}}
-        <img src="https://slack-imgs.com/?c=1&url=https%3A%2F%2Fstatic.fjcdn.com%2Fgifs%2FWeird_03536d_5482021.gif"/>
-      {{/if}}
+<div style="height: 100%;" class={{if isEditingFlags 'isPlacingFlag'}}>
+  <div style="clear:both;">
+    <h1 style="float: left;">Ember MineSweep [<a href="https://github.com/ryanlabouve/ember-minesweep">githutb</a>]</h1>
+    <p style="float: right; margin-top: 34px;">
+      By <a href="https://twitter.com/ryanlabouve">@ryanlabouve</a> && <a href="https://twitter.com/chundabear">@chundabear</a>
+    </p>
+  </div>
+  <div style="clear: both;">&nbsp;</div>
+  <div>
+    {{#if game.currentGame}}
+      {{#if (or game.currentGame.lost game.currentGame.won)}}
+        {{#if game.currentGame.won}}
+          <img src="https://slack-imgs.com/?c=1&url=https%3A%2F%2Fm.popkey.co%2Fad8e48%2FX03mg.gif" />
+        {{else}}
+          <img src="https://slack-imgs.com/?c=1&url=https%3A%2F%2Fstatic.fjcdn.com%2Fgifs%2FWeird_03536d_5482021.gif"/>
+        {{/if}}
 
-      {{start-game startNewGame=(action 'startNewGame')}}
+        {{start-game startNewGame=(action 'startNewGame')}}
+      {{else}}
+        <div data-test-minesweep-game>
+          {{minesweep-game
+            game=game.currentGame
+            resetGameAction=(action 'startNewGame')
+            isEditingFlags=isEditingFlags
+            changeIsEditingFlags=(action (mut isEditingFlags))
+          }}
+        </div>
+      {{/if}}
     {{else}}
-      <div data-test-minesweep-game>
-        {{minesweep-game
-          game=game.currentGame
-          resetGameAction=(action 'startNewGame')}}
-      </div>
+      {{start-game startNewGame=(action 'startNewGame')}}
     {{/if}}
-  {{else}}
-    {{start-game startNewGame=(action 'startNewGame')}}
-  {{/if}}
+  </div>
 </div>
