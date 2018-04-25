@@ -9,5 +9,5 @@ export default Controller.extend({
       let game = get(this, 'game');
       get(game, 'startNewGame').apply(game, arguments);
     },
-  },
+  }
 });

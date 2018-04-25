@@ -1,7 +1,22 @@
 <div data-test-minefield-row>
-  <div>
-    Number of mines: {{game.numberOfMines}}<br>
-    Squares revealed: {{game.numberOfSquaresRevealed}}<br>
+  <div style="
+    display:flex;
+    align-items: stretch;
+  ">
+  <div style='flex: 1;'>
+    {{minesLeft}}
+  </div>
+
+  <div onclick={{action 'resetGame'}} align='center' style='
+  cursor: pointer;
+  flex: 1;'>
+    😬
+  </div>
+
+  <div align='right' style='flex: 1;'>
+    {{timeSpent}}
+  </div>
+
   </div>
   {{#each game.minefield as |minefieldRow|}}
     <div style="

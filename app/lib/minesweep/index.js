@@ -15,27 +15,37 @@ export default class {
     this.won = false;
     this.opts = Object.assign({}, DEFAULT_OPTS, opts);
     this.minefieldGenerator = new MinefieldGenerator(this.opts);
-    this.totalNumberOfSquares = this.height * this.width;
+    this.totalNumberOfSquares = this.opts.height * this.opts.width;
     this.lostGame = () => {
       set(this, 'lost', true);
     };
     this.checkGameWon = () => {
       set(this, 'numberOfSquaresRevealed', this.checkNumberOfRevealed());
-      return (
-        this.numberOfMines + this.numberOfSquaresRevealed ===
-        this.totalNumberOfSquares
-      );
+      if (this.numberOfMines + this.numberOfSquaresRevealed ===
+        this.totalNumberOfSquares) {
+          set(this, 'won', true);
+        }
+    };
+    this.updateFlaggedSquares = () => {
+      set(this, 'numberOfFlaggedSquares', this.checkNumberOfFlagged());
     };
     this.minefield = this._setupMinefieldNeighbors(this._generateMinefield());
     this.numberOfMines = this.minefield.reduce((acc, row) => {
       return (acc += row.filter(square => square.isBomb === true).length);
     }, 0);
+    this.numberOfFlaggedSquares = 0;
     this.numberOfSquaresRevealed = 0;
   }
 
   checkNumberOfRevealed() {
     return this.minefield.reduce((acc, row) => {
       return (acc += row.filter(square => square.isRevealed === true).length);
+    }, 0);
+  }
+
+  checkNumberOfFlagged() {
+    return this.minefield.reduce((acc, row) => {
+      return (acc += row.filter(square => square.isFlagged === true).length);
     }, 0);
   }
 
@@ -50,6 +60,7 @@ export default class {
             isBomb: this.minefieldGenerator.isBomb(),
             lostGame: this.lostGame,
             checkGameWon: this.checkGameWon,
+            updateFlaggedSquares: this.updateFlaggedSquares,
           }),
       ),
     );

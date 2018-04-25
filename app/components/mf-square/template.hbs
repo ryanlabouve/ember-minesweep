@@ -25,13 +25,13 @@
       oncontextmenu={{action 'flagSquare' square}}
     >
       {{#if square.isFlagged}}
-        F
+        <img style='max-width: 32px;margin-top: 5px;' src='/flag.png'>
       {{/if}}
     </div>
   {{/if}}
 
   {{#if square.isBomb}}
-    b
+    <img src='/bomb.png'>
   {{else}}
     {{square.neighboringBombCount}}
   {{/if}}

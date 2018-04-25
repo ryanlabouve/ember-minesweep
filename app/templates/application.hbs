@@ -11,7 +11,9 @@
     </button>
   {{else}}
     <div data-test-minesweep-game>
-      {{minesweep-game game=game.currentGame}}
+      {{minesweep-game
+        game=game.currentGame
+        resetGameAction=(action 'startNewGame')}}
     </div>
   {{/if}}
 {{else}}
