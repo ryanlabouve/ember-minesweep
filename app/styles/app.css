@@ -1,4 +1,6 @@
-html, body {
+html,
+body {
+  padding: 1rem;
   box-sizing: border-box;
   font-family: monospace;
 }
