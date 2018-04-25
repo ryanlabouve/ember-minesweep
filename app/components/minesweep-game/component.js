@@ -1,6 +1,6 @@
 import Component from '@ember/component';
 import { computed, get, set } from '@ember/object';
-import { later } from '@ember/runloop';
+import { task, timeout } from 'ember-concurrency';
 
 export default Component.extend({
   game: null,
@@ -8,16 +8,16 @@ export default Component.extend({
   timeSpent: 0,
 
   didInsertElement() {
-    this.countUp();
+    get(this, 'countUp').perform(get(this, 'timeSpent'));
   },
 
-  countUp() {
-    later(this, () => {
-      let t = this.get('timeSpent')
-      this.set('timeSpent', t += 1)
-      this.countUp();
-    }, 1000);
-  },
+  countUp: task(function * (t) {
+    set(this, 'timeSpent', t += 1)
+
+    yield timeout(1000);
+
+    get(this, 'countUp').perform(get(this, 'timeSpent'));
+  }),
 
   minesLeft: computed(
     'game.{numberOfFlaggedSquares,numberOfMines}',
