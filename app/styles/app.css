@@ -3,9 +3,19 @@ body {
   padding: 1rem;
   box-sizing: border-box;
   font-family: monospace;
+  height: 100%;
 }
 *,
 *:before,
 *:after {
   box-sizing: inherit;
+}
+
+.ember-view {
+  height: 100%;
+}
+
+.isPlacingFlag {
+  color: white;
+  background: #285B5F;
 }

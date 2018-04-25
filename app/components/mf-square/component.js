@@ -38,6 +38,11 @@ export default Component.extend({
     },
 
     checkSquare(square) {
+      if (get(this, 'isEditingFlags')) {
+        this.actions.flagSquare(...arguments);
+        get(this, 'changeIsEditingFlags')(false);
+        return;
+      }
       square.check();
     },
   },
