@@ -1,1 +1,9 @@
-{{outlet}}
+{{#if game.currentGame}}
+  <div data-test-minesweep-game>
+    {{minesweep-game game=game}}
+  </div>
+{{else}}
+  <button {{action 'startNewGame'}} data-test-new-game>
+    Start New Game
+  </button>
+{{/if}}
