@@ -1,0 +1,29 @@
+.square-wrapper {
+  width: 100%;
+  line-height: 50px;
+  text-align: center;
+  border:0;
+  background: #bbbabb;
+  position:relative;
+
+  .square-box {
+    height: 50px;
+    background:#bbbabb;
+    border-left: 4px solid #ededed;
+    border-top: 4px solid #ededed;
+    border-bottom: 4px solid #737172;
+    border-right: 4px solid #737172;
+
+    img {
+      max-width: 32px;
+      margin-top: 5px;
+    }
+  }
+
+  .knocked-square {
+    border-left: solid 1px #858585;
+    border-right: solid 1px #858585;
+    border-top: solid 1px #858585;
+    border-bottom: solid 1px #858585;
+  }
+}

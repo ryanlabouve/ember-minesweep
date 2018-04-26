@@ -1,49 +1,37 @@
-<div data-test-minefield-row>
-  <div style="
-    display:flex;
-    align-items: stretch;
-  ">
-  <div style='flex: 1;'>
-    {{minesLeft}}
-  </div>
+<div data-test-minefield-row class='game-wrapper'>
+  <div class='info-row'>
+    <div class='info-section left'>
+      {{minesLeft}}
+    </div>
 
-  <div align='center' style='
-  cursor: pointer;
-  flex: 1;'>
-    <span onclick={{action 'resetGame'}}>
+    <div class='info-section center' onclick={{action 'resetGame'}}>
       😬
-    </span>
+    </div>
 
-    <div>
-      {{#if isEditingFlags}}
-        <div {{action changeIsEditingFlags false}}>
-          &gt;&gt; Now select square to flag or cancel&lt;&lt;
-        </div>
-      {{else}}
-        <div {{action changeIsEditingFlags true}}>
-          (place flag <span><img src="/flag.png"></span>)
-        </div>
-      {{/if}}
+    <div class='info-section right'>
+      {{timeSpent}}
     </div>
   </div>
 
-  <div align='right' style='flex: 1;'>
-    {{timeSpent}}
-  </div>
-
-  </div>
   {{#each game.minefield as |minefieldRow|}}
-    <div style="
-      display:flex;
-      align-items: stretch;
-    ">
+    <div class='square-row'>
       {{#each minefieldRow as |square|}}
-      {{mf-square
-        square=square
-        isEditingFlags=isEditingFlags
-        changeIsEditingFlags=changeIsEditingFlags
-      }}
+        {{mf-square
+          square=square
+          isEditingFlags=isEditingFlags
+          changeIsEditingFlags=changeIsEditingFlags
+        }}
       {{/each}}
     </div>
   {{/each}}
+
+  {{#if isEditingFlags}}
+    <div class='mobile-bar isPlacingFlag' {{action changeIsEditingFlags false}}>
+      Now select square to flag or cancel
+    </div>
+  {{else}}
+    <div class='mobile-bar' {{action changeIsEditingFlags true}}>
+      place flag <span><img src="/flag.png"></span>
+    </div>
+  {{/if}}
 </div>

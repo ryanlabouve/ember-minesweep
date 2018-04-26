@@ -1,40 +1,23 @@
 {{! bottom #737172}}
-<div style="
-  flex: 1;
-  height: 50px;
-  line-height: 50px;
-  text-align: center;
-  border:0;
-  background: #bbbabb;
-  position:relative;
-">
+<div class='square-wrapper'>
   {{#if (not square.isRevealed)}}
-    <div style="
-      background:#bbbabb;
-      height: 50px;
-      width: 100%;
-      position: absolute;
-      top: 0;
-      left: 0;
-      border-left: 4px solid #ededed;
-      border-top: 4px solid #ededed;
-      border-bottom: 4px solid #737172;
-      border-right: 4px solid #737172;
-      "
+    <div class='square-box'
       onclick={{action 'checkSquare' square}}
       oncontextmenu={{action 'flagSquare' square}}
     >
       {{#if square.isFlagged}}
-        <img style='max-width: 32px;margin-top: 5px;' src='/flag.png'>
+        <img src='/flag.png' />
       {{/if}}
     </div>
-  {{/if}}
-
-  {{#if square.isBomb}}
-    <img src='/bomb.png'>
   {{else}}
-    <span style="color: {{color}}; font-weight: bold;">
-      {{square.neighboringBombCount}}
-    </span>
+    <div class='knocked-square'>
+      {{#if square.isBomb}}
+        <img src='/bomb.png'>
+      {{else}}
+        <span style="color: {{color}}; font-weight: bold;">
+          {{square.neighboringBombCount}}
+        </span>
+      {{/if}}
+    </div>
   {{/if}}
 </div>
