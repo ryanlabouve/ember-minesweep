@@ -2,9 +2,7 @@ import {module, test} from 'qunit';
 import {
   visit,
   click,
-  currentURL,
-  findAll,
-  pauseTest,
+  findAll
 } from '@ember/test-helpers';
 import {setupApplicationTest} from 'ember-qunit';
 
