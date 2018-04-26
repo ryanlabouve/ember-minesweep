@@ -1,5 +1,5 @@
 import Service from '@ember/service';
-import {set, get, computed} from '@ember/object';
+import { set } from '@ember/object';
 import Minesweep from 'ember-minesweep/lib/minesweep';
 
 export default Service.extend({

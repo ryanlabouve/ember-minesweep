@@ -29,7 +29,7 @@ module('Unit | Lib | minesweep | square', function(hooks) {
   });
 
   test('#check', function(assert) {
-    let s = new Square();
+    let s = new Square({checkGameWon: function(){}});
     s.check();
     assert.equal(s.isRevealed, true, 'after checking, a square is revealed');
 
@@ -37,7 +37,11 @@ module('Unit | Lib | minesweep | square', function(hooks) {
   });
 
   test('#flag', function(assert) {
-    let s = new Square();
+    let s = new Square({
+      updateFlaggedSquares: function(){},
+      checkGameWon: function(){}
+    });
+
     s.flag();
     assert.equal(s.isFlagged, true, 'after flagging, a square is flagged');
     s.check();
